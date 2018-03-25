@@ -1,9 +1,6 @@
 package com.robindrew.trading.igindex.trader.igindex;
 
 import static com.robindrew.common.dependency.DependencyFactory.setDependency;
-import static com.robindrew.trading.provider.TradeDataProvider.FXCM;
-import static com.robindrew.trading.provider.TradeDataProvider.HISTDATA;
-import static com.robindrew.trading.provider.TradeDataProvider.IGINDEX;
 
 import java.io.File;
 
@@ -24,8 +21,6 @@ import com.robindrew.trading.price.candle.format.pcf.source.IPcfSourceManager;
 import com.robindrew.trading.price.candle.format.pcf.source.PcfSourceHistoryService;
 import com.robindrew.trading.price.candle.format.pcf.source.file.PcfFileManager;
 import com.robindrew.trading.price.history.IHistoryService;
-import com.robindrew.trading.provider.ITradeDataProviderSet;
-import com.robindrew.trading.provider.TradeDataProviderSet;
 import com.robindrew.trading.provider.igindex.platform.IIgSession;
 import com.robindrew.trading.provider.igindex.platform.IgCredentials;
 import com.robindrew.trading.provider.igindex.platform.IgEnvironment;
@@ -83,8 +78,8 @@ public class IgIndexComponent extends AbstractIdleComponent {
 		registry.register(connectionManager);
 		setDependency(IConnectionManager.class, connectionManager);
 
-		ITradeDataProviderSet providers = TradeDataProviderSet.of(IGINDEX, HISTDATA, FXCM);
-		IPcfSourceManager fileManager = new PcfFileManager(new File(historicPriceDir), providers);
+		IPcfSourceManager fileManager = new PcfFileManager(new File(historicPriceDir));
+		setDependency(IPcfSourceManager.class, fileManager);
 
 		log.info("Creating Historic Price Source");
 		IHistoryService source = new PcfSourceHistoryService(fileManager);

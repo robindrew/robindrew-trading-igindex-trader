@@ -47,9 +47,28 @@ body { padding-top: 10px; }
 <div class="row">
 
 <!-- TITLE -->
-<div class="col-md-3">
+<div class="col-md-12">
 <h3><span class="glyphicon glyphicon-signal"></span> History</h3>
-<div class="dropdown">
+<hr/>
+</div>
+
+<!-- SIDE BAR -->
+<div class="col-md-3">
+
+<div class="dropdown top-spacer">
+<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Provider
+<span class="caret"></span></button>
+<ul class="dropdown-menu">
+#foreach($entry in $providers)
+<li #if($provider == $entry) class="active" #end><a href="/History?provider=${entry}">${entry}</a></li>
+#end
+</ul>
+#if($provider)
+&nbsp;&nbsp;${provider}
+#end
+</div>
+
+<div class="dropdown top-spacer">
 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Instrument
 <span class="caret"></span></button>
 <ul class="dropdown-menu">
@@ -61,29 +80,19 @@ body { padding-top: 10px; }
 &nbsp;&nbsp;${instrument.name}
 #end
 </div>
-</div>
 
-<div class="col-md-9">
-<div class="panel panel-default">
-<div class="panel-body">
-  
-<div class="col-md-3">
-From Date
+<div class="top-spacer">From Date</div>
 <div class="input-group">
 <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
 <input id="Value_From_Date" type="text" class="form-control" placeholder="Enter a date" value="${from}" aria-describedby="basic-addon1">
 </div>
-</div>
 
-<div class="col-md-3">
-Number of Periods
+<div class="top-spacer">Periods</div>
 <div class="input-group">
 <input id="Value_Number" type="text" class="form-control" placeholder="Enter a date" value="${number}" aria-describedby="basic-addon1" size="3">
 </div>
-</div>
 
-<div class="col-md-3">
-Period
+<div class="top-spacer">Frequency</div>
 <div class="dropdown">
 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="Value_Period">${period}</span> <span class="caret"></span></button>
 <ul class="dropdown-menu">
@@ -93,23 +102,17 @@ Period
 </ul>
 &nbsp;&nbsp;
 </div>
-</div>
 
-<div class="col-md-2">
-&nbsp;<br/>
+<div class="top-spacer">
 <button id="Button_Draw_Chart" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Draw Chart</button>
 </div>
 
 
 </div>
-</div>
-</div>
 
-<div class="col-md-12"><hr/></div>
-<div class="col-md-12">
+<!-- CHART -->
+<div class="col-md-9">
 	<div id="chart_div" style="width: 100%; height: 500px;">#if(!$chartData)No historic prices available for this time frame.#end</div>
-</div>
-
 </div>
 
 

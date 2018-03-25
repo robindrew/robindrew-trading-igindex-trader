@@ -25,8 +25,10 @@ import com.robindrew.trading.IInstrument;
 import com.robindrew.trading.price.candle.IPriceCandle;
 import com.robindrew.trading.price.candle.PriceCandles;
 import com.robindrew.trading.price.candle.charts.googlecharts.GoogleCandlestickChartData;
+import com.robindrew.trading.price.candle.format.pcf.source.IPcfSourceManager;
 import com.robindrew.trading.price.candle.io.stream.source.IPriceCandleStreamSource;
-import com.robindrew.trading.price.history.IHistoryService;
+import com.robindrew.trading.provider.ITradeDataProvider;
+import com.robindrew.trading.provider.TradeDataProvider;
 import com.robindrew.trading.provider.igindex.platform.IIgSession;
 
 public class HistoryPage extends AbstractServicePage {
@@ -43,7 +45,8 @@ public class HistoryPage extends AbstractServicePage {
 	protected void execute(IHttpRequest request, IHttpResponse response, Map<String, Object> dataMap) {
 		super.execute(request, response, dataMap);
 
-		String name = get(request, "instrument", "");
+		String providerName = get(request, "provider", "");
+		String instrumentName = get(request, "instrument", "");
 		String period = get(request, "period", "1 Minute");
 		String from = get(request, "from", "2016-01-01");
 		int number = getInt(request, "number", 30);
@@ -56,21 +59,38 @@ public class HistoryPage extends AbstractServicePage {
 		dataMap.put("user", session.getCredentials().getUsername());
 		dataMap.put("environment", session.getEnvironment());
 
-		IHistoryService source = getDependency(IHistoryService.class);
-		Set<? extends IInstrument> instruments = source.getInstruments();
+		IPcfSourceManager manager = getDependency(IPcfSourceManager.class);
+
+		// Providers
+		Set<ITradeDataProvider> providers = manager.getProviders();
+		ITradeDataProvider provider = null;
+		if (!providerName.isEmpty()) {
+			provider = TradeDataProvider.valueOf(providerName);
+		}
+		dataMap.put("provider", provider);
+		dataMap.put("providers", providers);
+
+		// Instruments
+		Set<? extends IInstrument> instruments;
+		if (provider == null) {
+			instruments = manager.getInstruments();
+		} else {
+			instruments = manager.getInstruments(provider);
+		}
 		IInstrument instrument = null;
 		for (IInstrument entry : instruments) {
-			if (entry.getName().equals(name)) {
+			if (entry.getName().equals(instrumentName)) {
 				instrument = entry;
-				request.setValue("instrument", name);
+				request.setValue("instrument", instrumentName);
+				break;
 			}
 		}
 		dataMap.put("instrument", instrument);
 		dataMap.put("instruments", instruments);
 
 		// Draw the chart!
-		if (instrument != null) {
-			String chartData = getChartData(source, instrument, from, number, period);
+		if (instrument != null && provider != null) {
+			String chartData = getChartData(manager, provider, instrument, from, number, period);
 			dataMap.put("chartData", chartData);
 		}
 
@@ -80,7 +100,7 @@ public class HistoryPage extends AbstractServicePage {
 		dataMap.put("periods", getPeriods());
 	}
 
-	private String getChartData(IHistoryService priceSource, IInstrument instrument, String from, int number, String period) {
+	private String getChartData(IPcfSourceManager manager, ITradeDataProvider provider, IInstrument instrument, String from, int number, String period) {
 		try {
 			LocalDateTime fromDate = LocalDateTime.of(LocalDate.parse(from), LocalTime.of(0, 0));
 			UnitTime time = new UnitTimeParser().parse(period);
@@ -88,8 +108,8 @@ public class HistoryPage extends AbstractServicePage {
 
 			LocalDateTime toDate = fromDate.plus(offset, ChronoUnit.MILLIS);
 
-			IPriceCandleStreamSource source = priceSource.getPriceHistory(instrument).getStreamSource(fromDate, toDate);
-			source = PriceCandles.filterByDates(source, fromDate, toDate);
+			IPriceCandleStreamSource source = manager.getSourceSet(instrument, provider).asStreamSource(fromDate, toDate);
+
 			source = PriceCandles.aggregate(source, time.getTime(), time.getUnit());
 
 			log.info("Loading Candles for {} from {} for {} periods", instrument, from, number);
