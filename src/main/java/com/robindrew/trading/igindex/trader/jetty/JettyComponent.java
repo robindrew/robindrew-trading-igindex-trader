@@ -16,7 +16,6 @@ import com.robindrew.common.template.ITemplateLocator;
 import com.robindrew.common.template.velocity.VelocityTemplateLocatorSupplier;
 import com.robindrew.trading.igindex.trader.jetty.page.AccountsPage;
 import com.robindrew.trading.igindex.trader.jetty.page.HistoryPage;
-import com.robindrew.trading.igindex.trader.jetty.page.InfoPage;
 import com.robindrew.trading.igindex.trader.jetty.page.InstrumentPage;
 import com.robindrew.trading.igindex.trader.jetty.page.InstrumentsPage;
 import com.robindrew.trading.igindex.trader.jetty.page.PositionPage;
