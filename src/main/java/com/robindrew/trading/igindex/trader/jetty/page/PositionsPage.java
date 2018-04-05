@@ -12,7 +12,7 @@ import com.robindrew.common.http.servlet.response.IHttpResponse;
 import com.robindrew.common.service.component.jetty.handler.page.AbstractServicePage;
 import com.robindrew.trading.provider.igindex.platform.IIgSession;
 import com.robindrew.trading.provider.igindex.platform.rest.IIgRestService;
-import com.robindrew.trading.provider.igindex.platform.rest.executor.getactivity.Activity;
+import com.robindrew.trading.provider.igindex.platform.rest.executor.getactivity.ActivityList;
 import com.robindrew.trading.provider.igindex.platform.rest.executor.getpositions.MarketPosition;
 
 public class PositionsPage extends AbstractServicePage {
@@ -35,7 +35,7 @@ public class PositionsPage extends AbstractServicePage {
 		List<MarketPosition> positions = rest.getPositionList();
 		dataMap.put("positions", new TreeSet<>(positions));
 
-		List<Activity> activities = rest.getActivityList(refresh);
+		ActivityList activities = rest.getActivityList(refresh);
 		dataMap.put("activities", activities);
 
 	}
