@@ -2,8 +2,6 @@ package com.robindrew.trading.igindex.trader.igindex;
 
 import static com.robindrew.common.dependency.DependencyFactory.setDependency;
 
-import java.io.File;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,10 +24,6 @@ import com.robindrew.trading.igindex.trader.igindex.connection.ConnectionManager
 import com.robindrew.trading.igindex.trader.igindex.connection.IConnectionManager;
 import com.robindrew.trading.igindex.trader.igindex.session.SessionManager;
 import com.robindrew.trading.platform.ITradingPlatform;
-import com.robindrew.trading.price.candle.format.pcf.source.IPcfSourceManager;
-import com.robindrew.trading.price.candle.format.pcf.source.PcfSourceHistoryService;
-import com.robindrew.trading.price.candle.format.pcf.source.file.PcfFileManager;
-import com.robindrew.trading.price.history.IHistoryService;
 
 public class IgIndexComponent extends AbstractIdleComponent {
 
@@ -38,7 +32,6 @@ public class IgIndexComponent extends AbstractIdleComponent {
 	private static final IProperty<String> propertyApiKey = new StringProperty("igindex.api.key");
 	private static final IProperty<String> propertyUsername = new StringProperty("igindex.username");
 	private static final IProperty<String> propertyPassword = new StringProperty("igindex.password");
-	private static final IProperty<String> propertyHistoricPricesDir = new StringProperty("historic.prices.directory");
 	private static final IProperty<IgEnvironment> propertyEnvironment = new EnumProperty<>(IgEnvironment.class, "igindex.environment");
 
 	@Override
@@ -48,7 +41,6 @@ public class IgIndexComponent extends AbstractIdleComponent {
 		String apiKey = propertyApiKey.get();
 		String username = propertyUsername.get();
 		String password = propertyPassword.get();
-		String historicPriceDir = propertyHistoricPricesDir.get();
 		IgEnvironment environment = propertyEnvironment.get();
 
 		IgCredentials credentials = new IgCredentials(apiKey, username, password);
@@ -77,13 +69,6 @@ public class IgIndexComponent extends AbstractIdleComponent {
 		IConnectionManager connectionManager = new ConnectionManager(rest, platform);
 		registry.register(connectionManager);
 		setDependency(IConnectionManager.class, connectionManager);
-
-		IPcfSourceManager fileManager = new PcfFileManager(new File(historicPriceDir));
-		setDependency(IPcfSourceManager.class, fileManager);
-
-		log.info("Creating Historic Price Source");
-		IHistoryService source = new PcfSourceHistoryService(fileManager);
-		setDependency(IHistoryService.class, source);
 
 		log.info("Logging in ...");
 		connectionManager.login();
