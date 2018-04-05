@@ -12,10 +12,10 @@ import com.robindrew.common.http.servlet.request.IHttpRequest;
 import com.robindrew.common.http.servlet.response.IHttpResponse;
 import com.robindrew.common.service.component.jetty.handler.page.AbstractServicePage;
 import com.robindrew.common.text.Strings;
-import com.robindrew.trading.provider.igindex.platform.IIgSession;
-import com.robindrew.trading.provider.igindex.platform.rest.IIgRestService;
-import com.robindrew.trading.provider.igindex.platform.rest.executor.getmarkets.Markets;
-import com.robindrew.trading.provider.igindex.platform.rest.executor.getpositions.MarketPosition;
+import com.robindrew.trading.igindex.platform.IIgSession;
+import com.robindrew.trading.igindex.platform.rest.IIgRestService;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarkets.Markets;
+import com.robindrew.trading.igindex.platform.rest.executor.getpositions.MarketPosition;
 import com.robindrew.trading.trade.TradeDirection;
 
 public class InstrumentPage extends AbstractServicePage {

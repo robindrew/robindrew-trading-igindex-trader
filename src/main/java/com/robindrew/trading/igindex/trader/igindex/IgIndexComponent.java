@@ -13,6 +13,15 @@ import com.robindrew.common.properties.map.type.EnumProperty;
 import com.robindrew.common.properties.map.type.IProperty;
 import com.robindrew.common.properties.map.type.StringProperty;
 import com.robindrew.common.service.component.AbstractIdleComponent;
+import com.robindrew.trading.igindex.platform.IIgSession;
+import com.robindrew.trading.igindex.platform.IgCredentials;
+import com.robindrew.trading.igindex.platform.IgEnvironment;
+import com.robindrew.trading.igindex.platform.IgSession;
+import com.robindrew.trading.igindex.platform.IgTradingPlatform;
+import com.robindrew.trading.igindex.platform.rest.IIgRestService;
+import com.robindrew.trading.igindex.platform.rest.IgRestService;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.IMarketNavigationCache;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.MarketNavigationCache;
 import com.robindrew.trading.igindex.trader.igindex.connection.ConnectionManager;
 import com.robindrew.trading.igindex.trader.igindex.connection.IConnectionManager;
 import com.robindrew.trading.igindex.trader.igindex.session.SessionManager;
@@ -21,15 +30,6 @@ import com.robindrew.trading.price.candle.format.pcf.source.IPcfSourceManager;
 import com.robindrew.trading.price.candle.format.pcf.source.PcfSourceHistoryService;
 import com.robindrew.trading.price.candle.format.pcf.source.file.PcfFileManager;
 import com.robindrew.trading.price.history.IHistoryService;
-import com.robindrew.trading.provider.igindex.platform.IIgSession;
-import com.robindrew.trading.provider.igindex.platform.IgCredentials;
-import com.robindrew.trading.provider.igindex.platform.IgEnvironment;
-import com.robindrew.trading.provider.igindex.platform.IgSession;
-import com.robindrew.trading.provider.igindex.platform.IgTradingPlatform;
-import com.robindrew.trading.provider.igindex.platform.rest.IIgRestService;
-import com.robindrew.trading.provider.igindex.platform.rest.IgRestService;
-import com.robindrew.trading.provider.igindex.platform.rest.executor.getmarketnavigation.IMarketNavigationCache;
-import com.robindrew.trading.provider.igindex.platform.rest.executor.getmarketnavigation.MarketNavigationCache;
 
 public class IgIndexComponent extends AbstractIdleComponent {
 

@@ -11,7 +11,7 @@ import com.robindrew.trading.igindex.trader.jetty.JettyComponent;
 public class IgIndexTraderService extends AbstractService {
 
 	/**
-	 * Entry point for the TurnEngine Admin Client Service.
+	 * Entry point for the IG Index Trader Service.
 	 */
 	public static void main(String[] args) {
 		IgIndexTraderService service = new IgIndexTraderService(args);

@@ -8,7 +8,7 @@ import com.robindrew.common.http.servlet.executor.IVelocityHttpContext;
 import com.robindrew.common.http.servlet.request.IHttpRequest;
 import com.robindrew.common.http.servlet.response.IHttpResponse;
 import com.robindrew.common.service.component.jetty.handler.page.AbstractServicePage;
-import com.robindrew.trading.provider.igindex.platform.IIgSession;
+import com.robindrew.trading.igindex.platform.IIgSession;
 
 public class InfoPage extends AbstractServicePage {
 

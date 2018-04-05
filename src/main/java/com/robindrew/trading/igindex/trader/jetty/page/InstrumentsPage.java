@@ -11,13 +11,13 @@ import com.robindrew.common.http.servlet.executor.IVelocityHttpContext;
 import com.robindrew.common.http.servlet.request.IHttpRequest;
 import com.robindrew.common.http.servlet.response.IHttpResponse;
 import com.robindrew.common.service.component.jetty.handler.page.AbstractServicePage;
-import com.robindrew.trading.provider.igindex.platform.IIgSession;
-import com.robindrew.trading.provider.igindex.platform.rest.IIgRestService;
-import com.robindrew.trading.provider.igindex.platform.rest.executor.getmarketnavigation.IMarketNavigationCache;
-import com.robindrew.trading.provider.igindex.platform.rest.executor.getmarketnavigation.MarketNavigation;
-import com.robindrew.trading.provider.igindex.platform.rest.executor.getmarketnavigation.Markets;
-import com.robindrew.trading.provider.igindex.platform.rest.executor.getmarketnavigation.Node;
-import com.robindrew.trading.provider.igindex.platform.rest.executor.getmarketnavigation.Nodes;
+import com.robindrew.trading.igindex.platform.IIgSession;
+import com.robindrew.trading.igindex.platform.rest.IIgRestService;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.IMarketNavigationCache;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.MarketNavigation;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.Markets;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.Node;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.Nodes;
 
 public class InstrumentsPage extends AbstractServicePage {
 

@@ -22,6 +22,7 @@ import com.robindrew.common.http.servlet.response.IHttpResponse;
 import com.robindrew.common.service.component.jetty.handler.page.AbstractServicePage;
 import com.robindrew.common.text.parser.UnitTimeParser;
 import com.robindrew.trading.IInstrument;
+import com.robindrew.trading.igindex.platform.IIgSession;
 import com.robindrew.trading.price.candle.IPriceCandle;
 import com.robindrew.trading.price.candle.PriceCandles;
 import com.robindrew.trading.price.candle.charts.googlecharts.GoogleCandlestickChartData;
@@ -29,7 +30,6 @@ import com.robindrew.trading.price.candle.format.pcf.source.IPcfSourceManager;
 import com.robindrew.trading.price.candle.io.stream.source.IPriceCandleStreamSource;
 import com.robindrew.trading.provider.ITradeDataProvider;
 import com.robindrew.trading.provider.TradeDataProvider;
-import com.robindrew.trading.provider.igindex.platform.IIgSession;
 
 public class HistoryPage extends AbstractServicePage {
 
