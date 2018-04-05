@@ -15,7 +15,6 @@ import com.robindrew.common.service.component.jetty.handler.page.SystemPage;
 import com.robindrew.common.template.ITemplateLocator;
 import com.robindrew.common.template.velocity.VelocityTemplateLocatorSupplier;
 import com.robindrew.trading.igindex.trader.jetty.page.AccountsPage;
-import com.robindrew.trading.igindex.trader.jetty.page.HistoryPage;
 import com.robindrew.trading.igindex.trader.jetty.page.InstrumentPage;
 import com.robindrew.trading.igindex.trader.jetty.page.InstrumentsPage;
 import com.robindrew.trading.igindex.trader.jetty.page.PositionPage;
@@ -45,7 +44,6 @@ public class JettyComponent extends JettyVelocityComponent {
 		handler.uri("/Positions", new PositionsPage(getContext(), "site/igindex/trader/Positions.html"));
 		handler.uri("/Instrument", new InstrumentPage(getContext(), "site/igindex/trader/Instrument.html"));
 		handler.uri("/Instruments", new InstrumentsPage(getContext(), "site/igindex/trader/Instruments.html"));
-		handler.uri("/History", new HistoryPage(getContext(), "site/igindex/trader/History.html"));
 
 		handler.resources("/images/.+", "site/igindex/trader");
 	}
@@ -55,7 +53,6 @@ public class JettyComponent extends JettyVelocityComponent {
 		page.addLink("Accounts", "/Accounts", Bootstrap.COLOR_DEFAULT);
 		page.addLink("Positions", "/Positions", Bootstrap.COLOR_DEFAULT);
 		page.addLink("Instruments", "/Instruments", Bootstrap.COLOR_DEFAULT);
-		page.addLink("History", "/History", Bootstrap.COLOR_DEFAULT);
 		return page;
 	}
 
