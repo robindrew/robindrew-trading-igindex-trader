@@ -45,13 +45,13 @@ public class IgIndexComponent extends AbstractIdleComponent {
 
 		IgCredentials credentials = new IgCredentials(apiKey, username, password);
 
-		log.info("Creating Session", environment);
+		log.info("Creating Session");
 		log.info("Environment: {}", environment);
 		log.info("User: {}", credentials.getUsername());
 		IgSession session = new IgSession(credentials, environment);
 		setDependency(IIgSession.class, session);
 
-		log.info("Creating Account Manager");
+		log.info("Creating Session Manager");
 		SessionManager sessionManager = new SessionManager(session);
 		registry.register(sessionManager);
 
