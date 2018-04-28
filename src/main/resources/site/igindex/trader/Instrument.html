@@ -130,8 +130,8 @@ body { padding-top: 10px; }
 <input id="Input_StopProfit" type="text" class="form-control" value="0">
 </div>
 <hr/>
-<button id="Button_Sell" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> SELL&nbsp;&nbsp;<span class="badge">${markets.snapshot.bid}</span></button>&nbsp;&nbsp;
-<button id="Button_Buy" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> BUY&nbsp;&nbsp;<span class="badge">${markets.snapshot.offer}</span></button>&nbsp;&nbsp;
+<button id="Button_Sell" type="button" #if($markets.snapshot.marketStatus == "TRADEABLE") class="btn btn-danger"  #else class="btn btn-active" disabled #end><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> SELL&nbsp;&nbsp;<span class="badge">${markets.snapshot.bid}  </span></button>&nbsp;&nbsp;
+<button id="Button_Buy"  type="button" #if($markets.snapshot.marketStatus == "TRADEABLE") class="btn btn-primary" #else class="btn btn-active" disabled #end><span class="glyphicon glyphicon-arrow-up"   aria-hidden="true"></span>  BUY&nbsp;&nbsp;<span class="badge">${markets.snapshot.offer}</span></button>&nbsp;&nbsp;
 </div>
 </div>
 </div>
