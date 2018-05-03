@@ -21,7 +21,7 @@ import com.robindrew.trading.igindex.platform.IgSession;
 import com.robindrew.trading.igindex.platform.IgTradingPlatform;
 import com.robindrew.trading.igindex.platform.rest.IIgRestService;
 import com.robindrew.trading.igindex.platform.rest.IgRestService;
-import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.IMarketNavigationCache;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.cache.IMarketNavigationCache;
 import com.robindrew.trading.igindex.trader.igindex.connection.ConnectionManager;
 import com.robindrew.trading.igindex.trader.igindex.connection.IConnectionManager;
 import com.robindrew.trading.igindex.trader.igindex.session.SessionManager;

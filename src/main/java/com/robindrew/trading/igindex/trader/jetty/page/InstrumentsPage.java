@@ -13,11 +13,10 @@ import com.robindrew.common.http.servlet.response.IHttpResponse;
 import com.robindrew.common.service.component.jetty.handler.page.AbstractServicePage;
 import com.robindrew.trading.igindex.platform.IIgSession;
 import com.robindrew.trading.igindex.platform.rest.IIgRestService;
-import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.IMarketNavigationCache;
-import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.MarketNavigation;
-import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.Markets;
-import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.Node;
-import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.Nodes;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.cache.IMarketNavigationCache;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.response.Market;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.response.MarketNavigation;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.response.Node;
 
 public class InstrumentsPage extends AbstractServicePage {
 
@@ -43,7 +42,7 @@ public class InstrumentsPage extends AbstractServicePage {
 		IIgRestService rest = getDependency(IIgRestService.class);
 
 		if (!search.isEmpty()) {
-			Markets markets = rest.searchMarkets(search);
+			List<Market> markets = rest.searchMarkets(search);
 			dataMap.put("search", search);
 			dataMap.put("markets", markets);
 		} else {
@@ -60,10 +59,9 @@ public class InstrumentsPage extends AbstractServicePage {
 			dataMap.put("navigation", navigation);
 			dataMap.put("ancestors", ancestors);
 
-			Nodes nodes = navigation.getNodes();
+			List<Node> nodes = navigation.getNodes();
 			if (nodes != null) {
-				List<Node> list = nodes.getNodeList();
-				Paginator<Node> paginator = new Paginator<>(list);
+				Paginator<Node> paginator = new Paginator<>(nodes);
 				List<List<Node>> pages = paginator.getPages(15);
 				dataMap.put("nodes", pages);
 			}

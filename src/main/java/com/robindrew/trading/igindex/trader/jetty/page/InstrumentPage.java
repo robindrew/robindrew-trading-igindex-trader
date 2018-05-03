@@ -14,7 +14,7 @@ import com.robindrew.common.service.component.jetty.handler.page.AbstractService
 import com.robindrew.common.text.Strings;
 import com.robindrew.trading.igindex.platform.IIgSession;
 import com.robindrew.trading.igindex.platform.rest.IIgRestService;
-import com.robindrew.trading.igindex.platform.rest.executor.getmarkets.Markets;
+import com.robindrew.trading.igindex.platform.rest.executor.getmarkets.response.Markets;
 import com.robindrew.trading.igindex.platform.rest.executor.getpositions.MarketPosition;
 import com.robindrew.trading.trade.TradeDirection;
 

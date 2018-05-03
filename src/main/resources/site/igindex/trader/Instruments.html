@@ -106,7 +106,7 @@ body { padding-top: 10px; }
 </tr>
 </thead>
 <tbody>
-#foreach($market in $navigation.markets.marketList)
+#foreach($market in $navigation.markets)
 <tr>
 <td>${market.instrumentType}</td>
 <td><a href="/Instrument?epic=${market.epic}">${market.instrumentName}</a></td>
