@@ -28,13 +28,13 @@ public class InstrumentPage extends AbstractServicePage {
 	protected void execute(IHttpRequest request, IHttpResponse response, Map<String, Object> dataMap) {
 		super.execute(request, response, dataMap);
 
-		String epic = request.get("epic");
+		String epic = request.getString("epic");
 		boolean refresh = request.getBoolean("refresh", false);
 
-		String action = request.get("action", "");
+		String action = request.getString("action", "");
 		BigDecimal size = request.getBigDecimal("size", null);
-		int stopLoss = request.getInt("stopLoss", 0);
-		int stopProfit = request.getInt("stopProfit", 0);
+		int stopLoss = request.getInteger("stopLoss", 0);
+		int stopProfit = request.getInteger("stopProfit", 0);
 
 		// Trade!
 		if (!action.isEmpty()) {

@@ -23,7 +23,7 @@ public class PositionPage extends AbstractServicePage {
 	protected void execute(IHttpRequest request, IHttpResponse response, Map<String, Object> dataMap) {
 		super.execute(request, response, dataMap);
 
-		String dealId = request.get("dealId");
+		String dealId = request.getString("dealId");
 		boolean close = request.getBoolean("close", false);
 
 		IIgSession session = getDependency(IIgSession.class);

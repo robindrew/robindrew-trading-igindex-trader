@@ -28,11 +28,11 @@ public class InstrumentsPage extends AbstractServicePage {
 	protected void execute(IHttpRequest request, IHttpResponse response, Map<String, Object> dataMap) {
 		super.execute(request, response, dataMap);
 
-		String search = request.get("search", "");
+		String search = request.getString("search", "");
 
-		int id = request.getInt("id", 0);
-		int parentId = request.getInt("parentId", 0);
-		String name = request.get("name", "Instruments");
+		int id = request.getInteger("id", 0);
+		int parentId = request.getInteger("parentId", 0);
+		String name = request.getString("name", "Instruments");
 		boolean refresh = request.getBoolean("refresh", false);
 
 		IIgSession session = getDependency(IIgSession.class);
