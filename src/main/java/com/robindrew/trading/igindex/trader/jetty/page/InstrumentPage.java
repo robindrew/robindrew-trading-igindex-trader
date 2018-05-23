@@ -12,8 +12,8 @@ import com.robindrew.common.http.servlet.request.IHttpRequest;
 import com.robindrew.common.http.servlet.response.IHttpResponse;
 import com.robindrew.common.service.component.jetty.handler.page.AbstractServicePage;
 import com.robindrew.common.text.Strings;
-import com.robindrew.trading.igindex.platform.IIgSession;
-import com.robindrew.trading.igindex.platform.rest.IIgRestService;
+import com.robindrew.trading.igindex.platform.IIgIndexSession;
+import com.robindrew.trading.igindex.platform.rest.IIgIndexRestService;
 import com.robindrew.trading.igindex.platform.rest.executor.getmarkets.response.Markets;
 import com.robindrew.trading.igindex.platform.rest.executor.getpositions.MarketPosition;
 import com.robindrew.trading.trade.TradeDirection;
@@ -42,11 +42,11 @@ public class InstrumentPage extends AbstractServicePage {
 			openPosition(epic, direction, size, stopLoss, stopProfit);
 		}
 
-		IIgSession session = getDependency(IIgSession.class);
+		IIgIndexSession session = getDependency(IIgIndexSession.class);
 		dataMap.put("user", session.getCredentials().getUsername());
 		dataMap.put("environment", session.getEnvironment());
 
-		IIgRestService rest = getDependency(IIgRestService.class);
+		IIgIndexRestService rest = getDependency(IIgIndexRestService.class);
 		Markets markets = rest.getMarkets(epic, refresh);
 		List<MarketPosition> positions = filter(epic, rest.getPositionList());
 
@@ -67,7 +67,7 @@ public class InstrumentPage extends AbstractServicePage {
 	}
 
 	private void openPosition(String epic, TradeDirection direction, BigDecimal size, int stopLoss, int stopProfit) {
-		IIgRestService rest = getDependency(IIgRestService.class);
+		IIgIndexRestService rest = getDependency(IIgIndexRestService.class);
 		rest.openPosition(epic, direction, size, stopLoss, stopProfit < 1 ? null : stopProfit);
 	}
 }

@@ -14,13 +14,13 @@ import com.robindrew.common.properties.map.type.FileProperty;
 import com.robindrew.common.properties.map.type.IProperty;
 import com.robindrew.common.properties.map.type.StringProperty;
 import com.robindrew.common.service.component.AbstractIdleComponent;
-import com.robindrew.trading.igindex.platform.IIgSession;
-import com.robindrew.trading.igindex.platform.IgCredentials;
-import com.robindrew.trading.igindex.platform.IgEnvironment;
-import com.robindrew.trading.igindex.platform.IgSession;
-import com.robindrew.trading.igindex.platform.IgTradingPlatform;
-import com.robindrew.trading.igindex.platform.rest.IIgRestService;
-import com.robindrew.trading.igindex.platform.rest.IgRestService;
+import com.robindrew.trading.igindex.platform.IIgIndexSession;
+import com.robindrew.trading.igindex.platform.IgIndexCredentials;
+import com.robindrew.trading.igindex.platform.IgIndexEnvironment;
+import com.robindrew.trading.igindex.platform.IgIndexSession;
+import com.robindrew.trading.igindex.platform.IgIndexTradingPlatform;
+import com.robindrew.trading.igindex.platform.rest.IIgIndexRestService;
+import com.robindrew.trading.igindex.platform.rest.IgIndexRestService;
 import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.cache.IMarketNavigationCache;
 import com.robindrew.trading.igindex.trader.igindex.connection.ConnectionManager;
 import com.robindrew.trading.igindex.trader.igindex.connection.IConnectionManager;
@@ -35,7 +35,7 @@ public class IgIndexComponent extends AbstractIdleComponent {
 	private static final IProperty<String> propertyApiKey = new StringProperty("igindex.api.key");
 	private static final IProperty<String> propertyUsername = new StringProperty("igindex.username");
 	private static final IProperty<String> propertyPassword = new StringProperty("igindex.password");
-	private static final IProperty<IgEnvironment> propertyEnvironment = new EnumProperty<>(IgEnvironment.class, "igindex.environment");
+	private static final IProperty<IgIndexEnvironment> propertyEnvironment = new EnumProperty<>(IgIndexEnvironment.class, "igindex.environment");
 	private static final IProperty<File> propertyTransactionLogDir = new FileProperty("transaction.log.dir");
 
 	@Override
@@ -45,16 +45,16 @@ public class IgIndexComponent extends AbstractIdleComponent {
 		String apiKey = propertyApiKey.get();
 		String username = propertyUsername.get();
 		String password = propertyPassword.get();
-		IgEnvironment environment = propertyEnvironment.get();
+		IgIndexEnvironment environment = propertyEnvironment.get();
 		File transactionLogDir = propertyTransactionLogDir.get();
 
-		IgCredentials credentials = new IgCredentials(apiKey, username, password);
+		IgIndexCredentials credentials = new IgIndexCredentials(apiKey, username, password);
 
 		log.info("Creating Session");
 		log.info("Environment: {}", environment);
 		log.info("User: {}", credentials.getUsername());
-		IgSession session = new IgSession(credentials, environment);
-		setDependency(IIgSession.class, session);
+		IgIndexSession session = new IgIndexSession(credentials, environment);
+		setDependency(IIgIndexSession.class, session);
 
 		log.info("Creating Session Manager");
 		SessionManager sessionManager = new SessionManager(session);
@@ -65,12 +65,12 @@ public class IgIndexComponent extends AbstractIdleComponent {
 		transactionLog.start();
 
 		log.info("Creating REST Service");
-		IgRestService rest = new IgRestService(session, transactionLog);
-		setDependency(IIgRestService.class, rest);
+		IgIndexRestService rest = new IgIndexRestService(session, transactionLog);
+		setDependency(IIgIndexRestService.class, rest);
 		setDependency(IMarketNavigationCache.class, rest.getMarketNavigationCache());
 
 		log.info("Creating Trading Platform");
-		IgTradingPlatform platform = new IgTradingPlatform(rest);
+		IgIndexTradingPlatform platform = new IgIndexTradingPlatform(rest);
 		setDependency(ITradingPlatform.class, platform);
 
 		log.info("Creating Connection manager");

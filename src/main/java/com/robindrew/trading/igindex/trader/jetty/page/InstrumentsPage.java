@@ -11,8 +11,8 @@ import com.robindrew.common.http.servlet.executor.IVelocityHttpContext;
 import com.robindrew.common.http.servlet.request.IHttpRequest;
 import com.robindrew.common.http.servlet.response.IHttpResponse;
 import com.robindrew.common.service.component.jetty.handler.page.AbstractServicePage;
-import com.robindrew.trading.igindex.platform.IIgSession;
-import com.robindrew.trading.igindex.platform.rest.IIgRestService;
+import com.robindrew.trading.igindex.platform.IIgIndexSession;
+import com.robindrew.trading.igindex.platform.rest.IIgIndexRestService;
 import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.cache.IMarketNavigationCache;
 import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.response.Market;
 import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.response.MarketNavigation;
@@ -35,11 +35,11 @@ public class InstrumentsPage extends AbstractServicePage {
 		String name = request.getString("name", "Instruments");
 		boolean refresh = request.getBoolean("refresh", false);
 
-		IIgSession session = getDependency(IIgSession.class);
+		IIgIndexSession session = getDependency(IIgIndexSession.class);
 		dataMap.put("user", session.getCredentials().getUsername());
 		dataMap.put("environment", session.getEnvironment());
 
-		IIgRestService rest = getDependency(IIgRestService.class);
+		IIgIndexRestService rest = getDependency(IIgIndexRestService.class);
 
 		if (!search.isEmpty()) {
 			List<Market> markets = rest.searchMarkets(search);

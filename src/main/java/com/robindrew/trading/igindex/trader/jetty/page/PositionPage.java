@@ -9,8 +9,8 @@ import com.robindrew.common.http.servlet.request.IHttpRequest;
 import com.robindrew.common.http.servlet.response.IHttpResponse;
 import com.robindrew.common.service.component.jetty.handler.page.AbstractServicePage;
 import com.robindrew.common.text.Strings;
-import com.robindrew.trading.igindex.platform.IIgSession;
-import com.robindrew.trading.igindex.platform.rest.IIgRestService;
+import com.robindrew.trading.igindex.platform.IIgIndexSession;
+import com.robindrew.trading.igindex.platform.rest.IIgIndexRestService;
 import com.robindrew.trading.igindex.platform.rest.executor.getpositions.MarketPosition;
 
 public class PositionPage extends AbstractServicePage {
@@ -26,11 +26,11 @@ public class PositionPage extends AbstractServicePage {
 		String dealId = request.getString("dealId");
 		boolean close = request.getBoolean("close", false);
 
-		IIgSession session = getDependency(IIgSession.class);
+		IIgIndexSession session = getDependency(IIgIndexSession.class);
 		dataMap.put("user", session.getCredentials().getUsername());
 		dataMap.put("environment", session.getEnvironment());
 
-		IIgRestService rest = getDependency(IIgRestService.class);
+		IIgIndexRestService rest = getDependency(IIgIndexRestService.class);
 		MarketPosition position = rest.getPositionByDealId(dealId);
 		if (close) {
 			rest.closePosition(position);

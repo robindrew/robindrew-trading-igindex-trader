@@ -10,8 +10,8 @@ import com.robindrew.common.http.servlet.request.IHttpRequest;
 import com.robindrew.common.http.servlet.response.IHttpResponse;
 import com.robindrew.common.service.component.jetty.handler.page.AbstractServicePage;
 import com.robindrew.common.text.Strings;
-import com.robindrew.trading.igindex.platform.IIgSession;
-import com.robindrew.trading.igindex.platform.rest.IIgRestService;
+import com.robindrew.trading.igindex.platform.IIgIndexSession;
+import com.robindrew.trading.igindex.platform.rest.IIgIndexRestService;
 import com.robindrew.trading.igindex.platform.rest.executor.getaccounts.response.Account;
 import com.robindrew.trading.igindex.trader.igindex.connection.IConnectionManager;
 
@@ -25,13 +25,13 @@ public class AccountsPage extends AbstractServicePage {
 	protected void execute(IHttpRequest request, IHttpResponse response, Map<String, Object> dataMap) {
 		super.execute(request, response, dataMap);
 
-		IIgSession session = getDependency(IIgSession.class);
+		IIgIndexSession session = getDependency(IIgIndexSession.class);
 		dataMap.put("user", session.getCredentials().getUsername());
 		dataMap.put("environment", session.getEnvironment());
 
 		IConnectionManager connection = getDependency(IConnectionManager.class);
 		if (connection.isLoggedIn()) {
-			IIgRestService rest = getDependency(IIgRestService.class);
+			IIgIndexRestService rest = getDependency(IIgIndexRestService.class);
 			List<Account> accounts = rest.getAccountList();
 			dataMap.put("accounts", accounts);
 			dataMap.put("json", Strings.json(accounts, true));
