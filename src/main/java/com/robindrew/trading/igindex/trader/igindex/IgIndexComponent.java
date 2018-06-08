@@ -25,7 +25,7 @@ import com.robindrew.trading.igindex.platform.rest.executor.getmarketnavigation.
 import com.robindrew.trading.igindex.trader.igindex.connection.ConnectionManager;
 import com.robindrew.trading.igindex.trader.igindex.connection.IConnectionManager;
 import com.robindrew.trading.igindex.trader.igindex.session.SessionManager;
-import com.robindrew.trading.log.TransactionLog;
+import com.robindrew.trading.log.FileBackedTransactionLog;
 import com.robindrew.trading.platform.ITradingPlatform;
 
 public class IgIndexComponent extends AbstractIdleComponent {
@@ -61,8 +61,8 @@ public class IgIndexComponent extends AbstractIdleComponent {
 		registry.register(sessionManager);
 
 		log.info("Creating Transaction Log");
-		TransactionLog transactionLog = new TransactionLog(transactionLogDir);
-		transactionLog.start();
+		FileBackedTransactionLog transactionLog = new FileBackedTransactionLog(transactionLogDir);
+		transactionLog.start("IgIndexTransactionLog");
 
 		log.info("Creating REST Service");
 		IgIndexRestService rest = new IgIndexRestService(session, transactionLog);
