@@ -1,6 +1,7 @@
 package com.robindrew.trading.igindex.trader.jetty.page;
 
 import static com.robindrew.common.dependency.DependencyFactory.getDependency;
+import static java.math.BigDecimal.ZERO;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,8 +34,8 @@ public class InstrumentPage extends AbstractServicePage {
 
 		String action = request.getString("action", "");
 		BigDecimal size = request.getBigDecimal("size", null);
-		int stopLoss = request.getInteger("stopLoss", 0);
-		int stopProfit = request.getInteger("stopProfit", 0);
+		BigDecimal stopLoss = request.getBigDecimal("stopLoss", ZERO);
+		BigDecimal stopProfit = request.getBigDecimal("stopProfit", ZERO);
 
 		// Trade!
 		if (!action.isEmpty()) {
@@ -66,8 +67,8 @@ public class InstrumentPage extends AbstractServicePage {
 		return list;
 	}
 
-	private void openPosition(String epic, TradeDirection direction, BigDecimal size, int stopLoss, int stopProfit) {
+	private void openPosition(String epic, TradeDirection direction, BigDecimal size, BigDecimal stopLoss, BigDecimal stopProfit) {
 		IIgIndexRestService rest = getDependency(IIgIndexRestService.class);
-		rest.openPosition(epic, direction, size, stopLoss, stopProfit < 1 ? null : stopProfit);
+		rest.openPosition(epic, direction, size, stopLoss, stopProfit);
 	}
 }
